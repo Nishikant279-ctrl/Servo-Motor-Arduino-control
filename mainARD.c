@@ -11,17 +11,20 @@ void setup() {
 }
 
 void loop() {
-  if(Serial.available() < 0.18){
-    myservo.write(0);
-    delay(15);
-  }
-  if(Serial.available() < 0.09){
-    myservo.write(75);
-    delay(15);
-  }
-  if(Serial.available() > 0.19){
-    myservo.write(0);
-    delay(15);
-  }
+  if (Serial.available() > 0) {
+    float distance = Serial.parseFloat();
+
+    if(distance < 0.18){
+      myservo.write(0);
+      delay(15);
+    }
+    if(distance < 0.09){
+      myservo.write(75);
+      delay(15);
+    }
+    if(distance > 0.19){
+      myservo.write(0);
+      delay(15);
+    }
     
 }

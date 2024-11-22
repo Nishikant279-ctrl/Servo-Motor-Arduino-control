@@ -33,5 +33,7 @@ void loop() {
     else{
       myservo.write(90);
     }
+
+    delay(50);
     
 }

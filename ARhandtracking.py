@@ -38,7 +38,7 @@ while True:
                     distance = calculate_distance(landmark_8, landmark_12)
 
                     # Send data to Arduino regardless of distance
-                    ser.sendData(distance)  # Assuming sendData sends data
+                    ser.write(distance)  # Assuming sendData sends data
 
                 # Distance between thumb (id 4) and middle finger (id 8)
                 if id == 4 and id + 4 == 8:

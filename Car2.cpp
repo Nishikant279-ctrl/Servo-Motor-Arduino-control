@@ -1,3 +1,5 @@
+//Saad Innovative Ideas---Arduino Bluetooth Control Car. Copy this sketch and paste it in the
+Arduino software. Select right BOARD and PORT and upload the code
 #define in1 3
 
 #define in2 5
@@ -13,28 +15,28 @@
 #define HORN 7
 
 #define LEDP 4
-
 //DBZ
-
 int command; //Int to store app command state.
 
-int Speed 204; //0 255.
+int Speed = 204; // 0 - 255.
 
 int Speedsec;
 
-int buttonState 0;
+int buttonState = 0;
 
 int lastButtonState = 0;
 
-int Turnradius = 0; //Set the radius of a turn, 0 255 Note: the robot will malfunction if this is higher than int Speed.
+int Turnradius = 0; //Set the radius of a turn, 0 - 255 Note:the
+robot will malfunction if this is higher than int Speed.
 
-int brakeTime = 45; 
+int brakeTime = 45;
 
-int brkonoff 1; //1 for the electronic braking system, B for normal.
+int brkonoff = 1; //1 for the electronic braking system, 0 for
+normal.
 
 void setup() {
 
-pinMode(inl, OUTPUT);
+pinMode(in1, OUTPUT);
 
 pinMode(in2, OUTPUT);
 
@@ -42,11 +44,11 @@ pinMode(in3, OUTPUT);
 
 pinMode(in4, OUTPUT);
 
-pinMode (LEDF, OUTPUT); //Set the LED pin.
+pinMode(LEDF, OUTPUT); //Set the LED pin.
 
-pinMode (LEDB, OUTPUT);
+pinMode(LEDB, OUTPUT);
 
-pinMode (HORN, OUTPUT);
+pinMode(HORN, OUTPUT);
 
 pinMode(LEDP, OUTPUT);
 
@@ -58,40 +60,43 @@ void loop() {
 
 if (Serial.available() > 0) {
 
-command Serial.read();
+command = Serial.read();
 
 Stop(); //Initialize with motors stoped.
-int brkonoff 1; //1 for the electronic braking system, B for normal.
 
-void setup() {
+switch (command) {
 
-pinMode(inl, OUTPUT);
+case 'F':
 
-pinMode(in2, OUTPUT);
+forward();
 
-pinMode(in3, OUTPUT);
+break;
 
-pinMode(in4, OUTPUT);
+case 'B':
 
-pinMode (LEDF, OUTPUT); //Set the LED pin.
+back();
 
-pinMode (LEDB, OUTPUT);
+break;
 
-pinMode (HORN, OUTPUT);
+case 'L':
 
-pinMode(LEDP, OUTPUT);
+left();
 
-Serial.begin(9600); //Set the baud rate to your Bluetooth module.
+break;
 
-}
+case 'R':
 
-void loop() {
+right();
 
-if (Serial.available() > 0) {
+break;
 
-command Serial.read();
+case 'G':
 
-Stop(); //Initialize with motors stoped.
+forwardleft();
+
+break;
+
+case 'I':
 
 forwardright();
 
@@ -103,7 +108,7 @@ backleft();
 
 break;
 
-case '':
+case 'J':
 
 backright();
 
@@ -165,55 +170,55 @@ break;
 
 case '1':
 
-Speed 140;
+Speed = 140;
 
 break;
 
 case '2':
 
-Speed 153;
+Speed = 153;
 
 break;
 
 case '3':
 
-Speed 165;
+Speed = 165;
 
 break;
 
 case '4':
 
-Speed 178;
+Speed = 178;
 
 break;
 
 case '5':
 
-Speed 191;
+Speed = 191;
 
 break;
 
 case '6':
 
-Speed 204;
+Speed = 204;
 
 break;
 
 case '7':
 
-Speed 216;
+Speed = 216;
 
 break;
 
 case '8':
 
-Speed 229;
+Speed = 229;
 
 break;
 
 case '9':
 
-Speed 242;
+Speed = 242;
 
 break;
 
@@ -225,15 +230,15 @@ break;
 
 }
 
-Speedsec Turnradius;
+Speedsec = Turnradius;
 
 if (brkonoff == 1) {
 
-brakeon();
+brakeOn();
 
 } else {
 
-brakeoff();
+brakeOff();
 
 }
 
@@ -243,7 +248,7 @@ brakeoff();
 
 void forward() {
 
-analogWrite(inl, Speed);
+analogWrite(in1, Speed);
 
 analogWrite(in3, Speed);
 
@@ -269,13 +274,13 @@ void right() {
 
 analogWrite(in4, Speed);
 
-analogWrite(inl, Speed);
+analogWrite(in1, Speed);
 
 }
 
 void forwardleft() {
 
-analogWrite(inl, Speedsec);
+analogWrite(in1, Speedsec);
 
 analogWrite(in3, Speed);
 
@@ -283,7 +288,7 @@ analogWrite(in3, Speed);
 
 void forwardright() {
 
-analogWrite(inl, Speed);
+analogWrite(in1, Speed);
 
 analogWrite(in3, Speedsec);
 
@@ -307,7 +312,7 @@ analogWrite(in4, Speed);
 
 void Stop() {
 
-analogWrite(inl, 0);
+analogWrite(in1, 0);
 
 analogWrite(in2, 0);
 
@@ -361,7 +366,7 @@ void parkledon()
 
 {
 
-digitalWrite(4, HIGH);
+digitalWrite(4,HIGH);
 
 }
 
@@ -375,15 +380,15 @@ digitalWrite(4, LOW);
 
 void brakeOn() {
 
-buttonState command;
+buttonState = command;
 
 if (buttonState != lastButtonState) {
 
 if (buttonState == 'S') {
 
-if (lastButtonState ! buttonState) {
+if (lastButtonState != buttonState) {
 
-digitalWrite(inl, HIGH);
+digitalWrite(in1, HIGH);
 
 digitalWrite(in2, HIGH);
 
@@ -391,7 +396,7 @@ digitalWrite(in3, HIGH);
 
 digitalWrite(in4, HIGH);
 
-delay (brakeTime);
+delay(brakeTime);
 
 Stop();
 
@@ -399,7 +404,7 @@ Stop();
 
 }
 
-lastButtonState buttonState;
+lastButtonState = buttonState;
 
 }
 
